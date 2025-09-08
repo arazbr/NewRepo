@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Globalization;
 using SCICT.NLP.Utility.Parsers;
 
 namespace SCICT.NLP.Utility
@@ -41,20 +42,24 @@ namespace SCICT.NLP.Utility
             str = "";
             try
             {
-                string strValue = d.ToString("F20");
+                bool isNegative = d < 0;
+                if (isNegative)
+                    d = -d;
+
+                string strValue = d.ToString("F20", CultureInfo.InvariantCulture);
                 int dotIndex = strValue.IndexOf('.');
                 if (dotIndex > 0)
                 {
                     string preDot = strValue.Substring(0, dotIndex);
                     string postDot = MathUtils.RemoveTrailingZeros(strValue.Substring(dotIndex + 1));
 
-                    int numPreDot, numPostDot;
-                    if (!Int32.TryParse(preDot, out numPreDot))
+                    long numPreDot, numPostDot;
+                    if (!Int64.TryParse(preDot, NumberStyles.None, CultureInfo.InvariantCulture, out numPreDot))
                         return false;
 
                     if (postDot.Length > 0)
                     {
-                        if (!Int32.TryParse(postDot, out numPostDot))
+                        if (!Int64.TryParse(postDot, NumberStyles.None, CultureInfo.InvariantCulture, out numPostDot))
                             return false;
 
                         if (numPreDot != 0)
@@ -68,11 +73,18 @@ namespace SCICT.NLP.Utility
                     {
                         str += ToString(numPreDot);
                     }
+
+                    if (isNegative)
+                        str = "منفی " + str;
+
                     return true;
                 }
                 else
                 {
-                    return TryConvertNumberToPersianString(Convert.ToInt64(d), out str);
+                    bool res = TryConvertNumberToPersianString(Convert.ToInt64(d), out str);
+                    if (res && isNegative)
+                        str = "منفی " + str;
+                    return res;
                 }
             }
             catch
@@ -108,7 +120,7 @@ namespace SCICT.NLP.Utility
 
             if (x < 0L)
             {
-                result = "منهای ";
+                result = "منفی ";
                 x = -x;
             }
 

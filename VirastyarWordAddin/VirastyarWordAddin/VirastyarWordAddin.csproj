@@ -1,4 +1,4 @@
-﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="16.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!--
     This section defines project-level properties.
 
@@ -25,7 +25,7 @@
     <NoStandardLibraries>false</NoStandardLibraries>
     <RootNamespace>VirastyarWordAddin</RootNamespace>
     <AssemblyName>VirastyarWordAddin</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Product_StrongKey\Virastyar.snk</AssemblyOriginatorKeyFile>
     <PublishUrl>publish\</PublishUrl>
@@ -543,20 +543,15 @@
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- Include additional build rules for an Office application add-in. -->
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\OfficeTools\Microsoft.VisualStudio.Tools.Office.Office2003.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v16.0\OfficeTools\Microsoft.VisualStudio.Tools.Office.targets" />
   <!-- This section defines VSTO properties that describe the host-changeable project properties. -->
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{BAA0C2D2-18E2-41B9-852F-F413020CAA33}">
-        <ProjectProperties HostName="Word" HostPackage="{D53BAEDE-5B63-42BE-8267-3DED11EDC582}" OfficeVersion="11.0" VstxVersion="3.0" ApplicationType="Word" Language="cs" TemplatesPath="" DebugInfoExeName="#Software\Microsoft\Office\11.0\Word\InstallRoot\Path#winword.exe" DebugInfoCommandLine="/w" />
+        <ProjectProperties HostName="Word" HostPackage="{D53BAEDE-5B63-42BE-8267-3DED11EDC582}" OfficeVersion="16.0" VstxVersion="3.0" ApplicationType="Word" Language="cs" TemplatesPath="" DebugInfoExeName="#Software\Microsoft\Office\16.0\Word\InstallRoot\Path#winword.exe" DebugInfoCommandLine="/w" />
         <Host Name="Word" GeneratedCodeNamespace="VirastyarWordAddin" IconIndex="0">
           <HostItem Name="ThisAddIn" Code="ThisAddIn.cs" CanonicalName="AddIn" CanActivate="false" IconIndex="1" Blueprint="ThisAddIn.Designer.xml" GeneratedCode="ThisAddIn.Designer.cs" />
         </Host>
-        <ProjectClient>
-          <VSTO_CompatibleProducts ErrorProduct="This project requires Microsoft Office Word 2003 and the registered primary interop assemblies, but these are not installed." ErrorPIA="This project references the primary interop assembly for Microsoft Office Word 2003, but this primary interop assembly is not installed.">
-            <Product Code="{XXXXXXXX-6000-11D3-8CFE-0150048383C9}" Feature="WORDFiles" PIAFeature="Word_PIA" />
-          </VSTO_CompatibleProducts>
-        </ProjectClient>
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
